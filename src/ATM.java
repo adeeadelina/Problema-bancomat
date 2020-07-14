@@ -38,9 +38,9 @@ public class ATM {
 
     public boolean isEmpty() {
         if(calculateBalance() > 0) {
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     public int calculateBalance() {
@@ -50,6 +50,19 @@ public class ATM {
         }
         return currentBalance;
     }
+    public void updateBalance(int nrOfBills, int typeOfBills) {
+        balance.put(typeOfBills, balance.get(typeOfBills) - nrOfBills);
+        verifyBalance();
+    }
 
+    public void verifyBalance() {
+        int keyToRemove = 0;
+        for (Map.Entry<Integer, Integer> entry : balance.entrySet()) {
+            if(entry.getValue() == 0) {
+                keyToRemove = entry.getKey();
+            }
+        }
+        balance.remove(keyToRemove);
+    }
 
 }
