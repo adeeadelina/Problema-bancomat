@@ -10,6 +10,10 @@ public class CashWithdrawal {
         Scanner scanner = new Scanner(System.in);
         // TODO stop while loop
         while (scanner.hasNext()) {
+            //pierd un rand, vezi la testare cum sa faci!
+//            if(scanner.next().equals("exit")) {
+//                break;
+//            }
             int amount = scanner.nextInt();
             System.out.println(atmMachine.calculateBalance());
             System.out.println(amount);
@@ -36,9 +40,11 @@ public class CashWithdrawal {
                     totalBills += nrOfBills;
                     amount -= typeOfBills * nrOfBills;
                     System.out.println(nrOfBills + " x " + typeOfBills);
+                    atmMachine.updateBalance(nrOfBills, typeOfBills);
                 }
             }
-            atmMachine.updateBalance(nrOfBills, typeOfBills);
+            atmMachine.verifyBalance();
+
         }
         System.out.println("Total number of bills: " + totalBills);
         System.out.println("");
