@@ -1,3 +1,5 @@
+import java.util.Iterator;
+import java.util.Map;
 import java.util.TreeMap;
 
 public class ATM {
@@ -20,4 +22,28 @@ public class ATM {
         balance.put(50, 50);
         balance.put(100, 50);
     }
+
+    public boolean isAvailable (int amount) {
+        if (amount <= calculateBalance()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isEmpty() {
+        if(calculateBalance() > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public int calculateBalance() {
+        int currentBalance = 0;
+        for (Map.Entry<Integer, Integer> entry : balance.entrySet()) {
+            currentBalance += entry.getKey() * entry.getValue();
+        }
+        return currentBalance;
+    }
+
+
 }
