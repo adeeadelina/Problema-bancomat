@@ -8,6 +8,7 @@ public class CashWithdrawal {
         atmMachine.createInitialBalance();
         System.out.println(89 % 50);
         Scanner scanner = new Scanner(System.in);
+        // TODO stop while loop
         while (scanner.hasNext()) {
             int amount = scanner.nextInt();
             System.out.println(atmMachine.calculateBalance());
