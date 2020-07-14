@@ -51,8 +51,9 @@ public class ATM {
         return currentBalance;
     }
     public void updateBalance(int nrOfBills, int typeOfBills) {
+        System.out.println(balance.get(typeOfBills) + " " + nrOfBills);
         balance.put(typeOfBills, balance.get(typeOfBills) - nrOfBills);
-        verifyBalance();
+
     }
 
     public void verifyBalance() {

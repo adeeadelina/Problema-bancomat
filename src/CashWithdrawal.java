@@ -17,9 +17,7 @@ public class CashWithdrawal {
             int amount = scanner.nextInt();
             System.out.println(atmMachine.calculateBalance());
             System.out.println(amount);
-            System.out.println(atmMachine.balance);
             if(!atmMachine.isEmpty() && atmMachine.isAvailable(amount)) {
-                System.out.println("ajung macar acia");
                 withdraw(amount);
             }
         }
@@ -27,7 +25,6 @@ public class CashWithdrawal {
 
     // TODO metoda cu while in care se intampla calculul a cate bancnote
     public static void withdraw(int amount) {
-        System.out.println("ajung aici");
         int nrOfBills = 0, typeOfBills = 0, totalBills = 0;
         while (amount != 0) {
             for (Map.Entry<Integer, Integer> entry : atmMachine.balance.entrySet()) {
