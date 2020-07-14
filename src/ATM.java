@@ -1,10 +1,16 @@
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class ATM {
-    // TODO comparator pentru a le avea in ordine descrescatoare
-    TreeMap<Integer, Integer> balance = new TreeMap<>();
+    // descending order
+    TreeMap<Integer, Integer> balance = new TreeMap<>(new Comparator<Integer>() {
+        @Override
+        public int compare(Integer o1, Integer o2) {
+            return o2.compareTo(o1);
+        }
+    });
     private static ATM instance = null;
     private ATM() {}
     public static ATM getInstance() {
