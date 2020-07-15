@@ -8,6 +8,6 @@ public class Bills {
     }
 
     public String toString() {
-        return "(" + nrOfBills + ", " + typeOfBills + ")";
+        return "(" + nrOfBills + "x" + typeOfBills + ")";
     }
 }
