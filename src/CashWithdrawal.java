@@ -3,22 +3,25 @@ import java.util.Scanner;
 
 public class CashWithdrawal {
     public static ATM atmMachine = ATM.getInstance();
+
     // TODO cand nu mai raman bancnote de un tip, sterge entry-ul
     public static void main(String[] args) {
         atmMachine.createInitialBalance();
         System.out.println(89 % 50);
         Scanner scanner = new Scanner(System.in);
-        // TODO stop while loop
+        // TODO stop while loop la testare>>
         while (scanner.hasNext()) {
-            //pierd un rand, vezi la testare cum sa faci!
-//            if(scanner.next().equals("exit")) {
-//                break;
-//            }
             int amount = scanner.nextInt();
             System.out.println(atmMachine.calculateBalance());
             System.out.println(amount);
-            if(!atmMachine.isEmpty() && atmMachine.isAvailable(amount)) {
-                withdraw(amount);
+            if (!atmMachine.isEmpty()) {
+                if (atmMachine.isAvailable(amount)) {
+                    withdraw(amount);
+                } else {
+                    System.out.println("Cannot withdraw money.");
+                }
+            } else {
+                System.out.println("ATM is empty.");
             }
         }
     }
@@ -29,21 +32,27 @@ public class CashWithdrawal {
         while (amount != 0) {
             for (Map.Entry<Integer, Integer> entry : atmMachine.balance.entrySet()) {
                 if (entry.getKey() <= amount) {
-                    nrOfBills = amount/entry.getKey();
+                    nrOfBills = amount / entry.getKey();
                     typeOfBills = entry.getKey();
                     if (nrOfBills > entry.getValue()) {
                         nrOfBills = entry.getValue();
                     }
                     totalBills += nrOfBills;
                     amount -= typeOfBills * nrOfBills;
-                    System.out.println(nrOfBills + " x " + typeOfBills);
+                    if (nrOfBills != 0) {
+                        System.out.println(nrOfBills + " x " + typeOfBills);
+                    }
                     atmMachine.updateBalance(nrOfBills, typeOfBills);
                 }
+            }
+            // when the split into bills cannot be done
+            if (nrOfBills == 0) {
+                System.out.println("Cannot withdraw money.");
             }
             atmMachine.verifyBalance();
 
         }
-        System.out.println("Total number of bills: " + totalBills);
+        System.out.println("Total number of bills used: " + totalBills);
         System.out.println("");
     }
 }
