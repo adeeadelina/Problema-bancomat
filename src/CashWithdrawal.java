@@ -1,33 +1,32 @@
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Scanner;
 
 public class CashWithdrawal {
     public static ATM atmMachine = ATM.getInstance();
 
-    // TODO cand nu mai raman bancnote de un tip, sterge entry-ul
     public static void main(String[] args) {
         atmMachine.createInitialBalance();
-        System.out.println(89 % 50);
         Scanner scanner = new Scanner(System.in);
-        // TODO stop while loop la testare>>
         while (scanner.hasNext()) {
             int amount = scanner.nextInt();
             System.out.println(atmMachine.calculateBalance());
             System.out.println(amount);
             if (!atmMachine.isEmpty()) {
                 if (atmMachine.isAvailable(amount)) {
-                    withdraw(amount);
+                    ArrayList<Bills> billsReturned = withdraw(amount);
+                    System.out.println(billsReturned);
                 } else {
                     System.out.println("Cannot withdraw money.");
                 }
             } else {
-                System.out.println("ATM is empty.");
+                System.out.println("Cannot withdraw money.");
             }
         }
     }
 
-    // TODO metoda cu while in care se intampla calculul a cate bancnote
-    public static void withdraw(int amount) {
+    public static ArrayList<Bills> withdraw(int amount) {
+        ArrayList<Bills> billsReturned = new ArrayList<>();
         int nrOfBills = 0, typeOfBills = 0, totalBills = 0;
         while (amount != 0) {
             for (Map.Entry<Integer, Integer> entry : atmMachine.balance.entrySet()) {
@@ -40,7 +39,7 @@ public class CashWithdrawal {
                     totalBills += nrOfBills;
                     amount -= typeOfBills * nrOfBills;
                     if (nrOfBills != 0) {
-                        System.out.println(nrOfBills + " x " + typeOfBills);
+                        Bills goodBills = new Bills(nrOfBills, typeOfBills);
                     }
                     atmMachine.updateBalance(nrOfBills, typeOfBills);
                 }
@@ -54,5 +53,6 @@ public class CashWithdrawal {
         }
         System.out.println("Total number of bills used: " + totalBills);
         System.out.println("");
+        return billsReturned;
     }
 }
