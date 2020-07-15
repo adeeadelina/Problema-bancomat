@@ -40,6 +40,7 @@ public class CashWithdrawal {
                     amount -= typeOfBills * nrOfBills;
                     if (nrOfBills != 0) {
                         Bills goodBills = new Bills(nrOfBills, typeOfBills);
+                        billsReturned.add(goodBills);
                     }
                     atmMachine.updateBalance(nrOfBills, typeOfBills);
                 }
