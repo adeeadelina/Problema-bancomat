@@ -23,8 +23,7 @@ public class ATM {
         return instance;
     }
 
-    // TODO comentariu mai bun despre key si value
-    // key - type, value - how many
+    // key - type of bill, value - how many bills of that type
     public void createInitialBalance() {
         balance.put(1, 100);
         balance.put(5, 100);
@@ -60,7 +59,8 @@ public class ATM {
 
     }
 
-    //
+    // if there are types with no bills left, erase them
+    // identify warning and critical cases
     public void verifyBalance() {
         int keyToRemove = 0;
         for (Map.Entry<Integer, Integer> entry : balance.entrySet()) {
