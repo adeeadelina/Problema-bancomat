@@ -13,7 +13,7 @@ public class CashWithdrawal {
     public static HashSet<Bills> withdraw(int amount) {
         HashSet<Bills> billsReturned = new HashSet<>();
         int nrOfBills = 0, typeOfBills = 0, totalBills = 0;
-        if (amount == 0) {
+        if (amount <= 0) {
             System.out.println("Cannot withdraw money.");
             return null;
         }
