@@ -1,17 +1,11 @@
-import javax.management.Notification;
-import java.util.Comparator;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class ATM {
     private static ATM instance = null;
     // descending order
-    TreeMap<Integer, Integer> balance = new TreeMap<>(new Comparator<Integer>() {
-        @Override
-        public int compare(Integer o1, Integer o2) {
-            return o2.compareTo(o1);
-        }
-    });
+    // lambda function to compare
+    TreeMap<Integer, Integer> balance = new TreeMap<>((o1, o2) -> o2.compareTo(o1));
 
     private ATM() {
     }
@@ -33,17 +27,7 @@ public class ATM {
     }
 
     public boolean isAvailable(int amount) {
-        if (amount <= calculateBalance()) {
-            return true;
-        }
-        return false;
-    }
-
-    public boolean isEmpty() {
-        if (calculateBalance() > 0) {
-            return false;
-        }
-        return true;
+        return amount <= calculateBalance();
     }
 
     public int calculateBalance() {

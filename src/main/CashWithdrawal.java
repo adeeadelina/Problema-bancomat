@@ -1,7 +1,5 @@
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Scanner;
 
 public class CashWithdrawal {
     public static ATM atmMachine = ATM.getInstance();
@@ -10,13 +8,13 @@ public class CashWithdrawal {
         atmMachine.createInitialBalance();
     }
 
-    public static HashSet<Bills> withdraw(int amount) {
-        HashSet<Bills> billsReturned = new HashSet<>();
-        int nrOfBills = 0, typeOfBills = 0, totalBills = 0;
-        if (amount <= 0) {
+    public HashSet<Bills> withdraw(int amount) {
+        if (!isAmountCorrect(amount) || !atmMachine.isAvailable(amount)) {
             System.out.println("Cannot withdraw money.");
             return null;
         }
+        HashSet<Bills> billsReturned = new HashSet<>();
+        int nrOfBills = 0, typeOfBills, totalBills = 0;
         while (amount != 0) {
             for (Map.Entry<Integer, Integer> entry : atmMachine.balance.entrySet()) {
                 if (entry.getKey() <= amount) {
@@ -42,8 +40,17 @@ public class CashWithdrawal {
             atmMachine.verifyBalance();
 
         }
-        System.out.println("Total number of bills used: " + totalBills);
-        System.out.println("");
+        printTotalNumberOfBills(totalBills);
         return billsReturned;
+    }
+
+    //checks if the amount is a valid number for such request
+    public boolean isAmountCorrect(int amount) {
+        return amount > 0;
+    }
+
+    public void printTotalNumberOfBills(int totalNumberOfBills) {
+        System.out.println("Total number of bills used: " + totalNumberOfBills);
+        System.out.println();
     }
 }
