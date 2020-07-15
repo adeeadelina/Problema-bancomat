@@ -1,32 +1,36 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 
 public class CashWithdrawal {
     public static ATM atmMachine = ATM.getInstance();
 
-    public static void main(String[] args) {
+    public void createATM() {
         atmMachine.createInitialBalance();
-        Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNext()) {
-            int amount = scanner.nextInt();
-            System.out.println(atmMachine.calculateBalance());
-            System.out.println(amount);
-            if (!atmMachine.isEmpty()) {
-                if (atmMachine.isAvailable(amount)) {
-                    ArrayList<Bills> billsReturned = withdraw(amount);
-                    System.out.println(billsReturned);
-                } else {
-                    System.out.println("Cannot withdraw money.");
-                }
-            } else {
-                System.out.println("Cannot withdraw money.");
-            }
-        }
     }
+//    public static void main(String[] args) {
+//
+//        Scanner scanner = new Scanner(System.in);
+//        while (scanner.hasNext()) {
+//            int amount = scanner.nextInt();
+//            System.out.println(atmMachine.calculateBalance());
+//            System.out.println(amount);
+//            if (!atmMachine.isEmpty()) {
+//                if (atmMachine.isAvailable(amount)) {
+//                    ArrayList<Bills> billsReturned = withdraw(amount);
+//                    System.out.println(billsReturned);
+//                } else {
+//                    System.out.println("Cannot withdraw money.");
+//                }
+//            } else {
+//                System.out.println("Cannot withdraw money.");
+//            }
+//        }
+//    }
 
-    public static ArrayList<Bills> withdraw(int amount) {
-        ArrayList<Bills> billsReturned = new ArrayList<>();
+    public static HashSet<Bills> withdraw(int amount) {
+        HashSet<Bills> billsReturned = new HashSet<>();
         int nrOfBills = 0, typeOfBills = 0, totalBills = 0;
         while (amount != 0) {
             for (Map.Entry<Integer, Integer> entry : atmMachine.balance.entrySet()) {
@@ -48,6 +52,7 @@ public class CashWithdrawal {
             // when the split into bills cannot be done
             if (nrOfBills == 0) {
                 System.out.println("Cannot withdraw money.");
+                return null;
             }
             atmMachine.verifyBalance();
 
