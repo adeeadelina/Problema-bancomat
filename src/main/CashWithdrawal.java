@@ -9,29 +9,14 @@ public class CashWithdrawal {
     public void createATM() {
         atmMachine.createInitialBalance();
     }
-//    public static void main(String[] args) {
-//
-//        Scanner scanner = new Scanner(System.in);
-//        while (scanner.hasNext()) {
-//            int amount = scanner.nextInt();
-//            System.out.println(atmMachine.calculateBalance());
-//            System.out.println(amount);
-//            if (!atmMachine.isEmpty()) {
-//                if (atmMachine.isAvailable(amount)) {
-//                    ArrayList<Bills> billsReturned = withdraw(amount);
-//                    System.out.println(billsReturned);
-//                } else {
-//                    System.out.println("Cannot withdraw money.");
-//                }
-//            } else {
-//                System.out.println("Cannot withdraw money.");
-//            }
-//        }
-//    }
 
     public static HashSet<Bills> withdraw(int amount) {
         HashSet<Bills> billsReturned = new HashSet<>();
         int nrOfBills = 0, typeOfBills = 0, totalBills = 0;
+        if (amount == 0) {
+            System.out.println("Cannot withdraw money.");
+            return null;
+        }
         while (amount != 0) {
             for (Map.Entry<Integer, Integer> entry : atmMachine.balance.entrySet()) {
                 if (entry.getKey() <= amount) {
